@@ -270,4 +270,3 @@ Mini example excerpt:
 
 **Suggested filename:** `user-story.md`
 **Dependencies:** References `skills/proto-persona/SKILL.md`, `skills/problem-statement/SKILL.md`
-**Used by:** `skills/user-story-splitting/SKILL.md`, `skills/epic-hypothesis/SKILL.md`

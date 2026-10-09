@@ -333,4 +333,3 @@ Mini example excerpt:
 
 **Suggested filename:** `proto-persona.md`
 **Dependencies:** References `skills/jobs-to-be-done/SKILL.md`, `skills/problem-statement/SKILL.md`
-**Used by:** `skills/positioning-statement/SKILL.md`, `skills/user-story/SKILL.md`, `skills/problem-statement/SKILL.md`

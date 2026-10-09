@@ -377,4 +377,3 @@ Mini example excerpt:
 
 **Suggested filename:** `jobs-to-be-done.md`
 **Dependencies:** References `skills/proto-persona/SKILL.md`
-**Used by:** `skills/positioning-statement/SKILL.md`, `skills/problem-statement/SKILL.md`, `skills/epic-hypothesis/SKILL.md`
