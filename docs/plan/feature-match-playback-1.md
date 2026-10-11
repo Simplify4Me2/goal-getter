@@ -275,15 +275,15 @@ All tests are in `GoalGetter/GoalGetter.Tests/SyntheticMatchGeneratorTests.cs` a
 
 No boy scout findings
 
-### Implementation Phase 3 - Live-Pace Playback and Registration
+### Implementation Phase 3 (✅ COMPLETED) - Live-Pace Playback and Registration
 
 - **GOAL-003**: Deliver generated events at live pace with injected time, and register all match services
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests --filter "FullyQualifiedName~MatchPlaybackTests|FullyQualifiedName~MatchServiceRegistrationTests"` exits with 0 failures and 8 passed tests
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-004 | Create `MatchPlaybackOptions` (validated `SpeedFactor`) and `IMatchPlayback` with `MatchPlayback`, an async iterator that waits until each event's due time using `TimeProvider` | FILE-005, FILE-011, FILE-012, FILE-013 | | |
-| TASK-005 | Create `AddMatchServices` to register options, `TimeProvider`, catalog, generator, and playback, and call it from `Program.cs` | FILE-014, FILE-015, FILE-016 | | |
+| TASK-004 | Create `MatchPlaybackOptions` (validated `SpeedFactor`) and `IMatchPlayback` with `MatchPlayback`, an async iterator that waits until each event's due time using `TimeProvider` | FILE-005, FILE-011, FILE-012, FILE-013 | Yes | 2026-10-11 |
+| TASK-005 | Create `AddMatchServices` to register options, `TimeProvider`, catalog, generator, and playback, and call it from `Program.cs` | FILE-014, FILE-015, FILE-016 | Yes | 2026-10-11 |
 
 #### TASK-004 Code
 
