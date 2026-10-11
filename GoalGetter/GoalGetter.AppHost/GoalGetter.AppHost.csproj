@@ -14,4 +14,8 @@
     <ProjectReference Include="..\GoalGetter.Web\GoalGetter.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Azure.CosmosDB" Version="13.6.1" />
+  </ItemGroup>
+
 </Project>
