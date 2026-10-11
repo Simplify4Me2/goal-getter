@@ -1,0 +1,103 @@
+@page "/match"
+@rendermode InteractiveServer
+@using GoalGetter.Contracts.Matches
+@implements IDisposable
+@inject MatchApiClient MatchApi
+
+<PageTitle>Match</PageTitle>
+
+<h1>Match</h1>
+
+@if (error is not null)
+{
+    <p class="text-danger" role="alert">@error</p>
+}
+
+@if (fixture is null && error is null)
+{
+    <p><em>Loading fixture...</em></p>
+}
+
+@if (fixture is not null)
+{
+    <h2>@fixture.Home.Name vs @fixture.Away.Name</h2>
+    <p role="status">Clock: @Clock</p>
+    <button class="btn btn-primary" @onclick="StartMatchAsync" disabled="@running">Start match</button>
+
+    <ul>
+        @foreach (var matchEvent in events)
+        {
+            <li>@FormatClock(matchEvent.ClockSeconds) @matchEvent.Type, @PlayerName(matchEvent) (@matchEvent.X.ToString("0"), @matchEvent.Y.ToString("0"))</li>
+        }
+    </ul>
+}
+
+@code {
+    private const int MatchId = 1;
+    private const int MaxVisibleEvents = 50;
+
+    private readonly CancellationTokenSource cts = new();
+    private readonly List<MatchEvent> events = [];
+    private Dictionary<int, string> playerNames = [];
+    private Fixture? fixture;
+    private bool running;
+    private string? error;
+    private int clockSeconds;
+
+    private string Clock => FormatClock(clockSeconds);
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            fixture = await MatchApi.GetFixtureAsync(MatchId, cts.Token);
+            if (fixture is not null)
+            {
+                playerNames = fixture.Home.Lineup.Concat(fixture.Away.Lineup)
+                    .ToDictionary(player => player.Id, player => player.Name);
+            }
+        }
+        catch (HttpRequestException)
+        {
+            error = "Could not load the match. Try again.";
+        }
+    }
+
+    private async Task StartMatchAsync()
+    {
+        running = true;
+        error = null;
+        events.Clear();
+        clockSeconds = 0;
+
+        try
+        {
+            await foreach (var matchEvent in MatchApi.StreamEventsAsync(MatchId, cts.Token))
+            {
+                clockSeconds = matchEvent.ClockSeconds;
+                events.Insert(0, matchEvent);
+                if (events.Count > MaxVisibleEvents) events.RemoveAt(events.Count - 1);
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (HttpRequestException)
+        {
+            error = "Could not start the match. Try again.";
+        }
+        catch (OperationCanceledException) when (cts.IsCancellationRequested)
+        {
+            // The page was disposed; stop quietly.
+        }
+        finally
+        {
+            running = false;
+        }
+    }
+
+    private string PlayerName(MatchEvent matchEvent) =>
+        playerNames.GetValueOrDefault(matchEvent.PlayerId, "Unknown player");
+
+    private static string FormatClock(int seconds) => $"{seconds / 60:00}:{seconds % 60:00}";
+
+    public void Dispose() => cts.Cancel();
+}

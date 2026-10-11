@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoalGetter.ServiceDefaults\GoalGetter.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\GoalGetter.Contracts\GoalGetter.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

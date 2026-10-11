@@ -23,6 +23,7 @@
     <ProjectReference Include="..\GoalGetter.AppHost\GoalGetter.AppHost.csproj" />
     <ProjectReference Include="..\GoalGetter.Contracts\GoalGetter.Contracts.csproj" />
     <ProjectReference Include="..\GoalGetter.ApiService\GoalGetter.ApiService.csproj" />
+    <ProjectReference Include="..\GoalGetter.Web\GoalGetter.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

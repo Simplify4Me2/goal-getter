@@ -12,12 +12,21 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddOutputCache();
 
-builder.Services.AddHttpClient<WeatherApiClient>(client =>
+// This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
+// Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
+const string ApiServiceUri = "https+http://apiservice";
+
+builder.Services.AddHttpClient<WeatherApiClient>(client => client.BaseAddress = new(ApiServiceUri));
+
+// The shared resilience handler has a total timeout that would end a 90-minute event stream.
+#pragma warning disable EXTEXP0001 // RemoveAllResilienceHandlers is experimental in Microsoft.Extensions.Http.Resilience 10.10.
+builder.Services.AddHttpClient<MatchApiClient>(client =>
     {
-        // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
-        // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
-        client.BaseAddress = new("https+http://apiservice");
-    });
+        client.BaseAddress = new(ApiServiceUri);
+        client.Timeout = Timeout.InfiniteTimeSpan;
+    })
+    .RemoveAllResilienceHandlers();
+#pragma warning restore EXTEXP0001
 
 var app = builder.Build();
 

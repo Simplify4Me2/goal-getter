@@ -409,7 +409,7 @@ builder.Services.AddMatchServices();
 
 No boy scout findings
 
-### Implementation Phase 4 - API Endpoints and Aspire Integration (✅ COMPLETED)
+### Implementation Phase 4 (✅ COMPLETED) - API Endpoints and Aspire Integration 
 
 - **GOAL-004**: Expose the fixture and the live event stream over HTTP, and verify them end to end through the Aspire AppHost
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests` exits with 0 failures, including `WebTests` and `MatchEndpointsTests`
@@ -601,15 +601,15 @@ All tests below are in `GoalGetter/GoalGetter.Tests/MatchEndpointsTests.cs` unle
 
 - **BSC-001**: `GoalGetter/GoalGetter.Tests/WebTests.cs` | DRY | The AppHost creation, logging filters, resilience handler, build, and start block would be copied into every new integration test class | Move the block into `TestAppHost.StartAsync` and call it from `WebTests` and `MatchEndpointsTests`. Covered by TEST-029
 
-### Implementation Phase 5 - Web Frontend Match Page
+### Implementation Phase 5 (✅ COMPLETED) - Web Frontend Match Page
 
 - **GOAL-005**: Let a user open `/match`, press Start match, and watch events arrive with the match clock and resolved player names
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests --filter "FullyQualifiedName~MatchApiClientTests|FullyQualifiedName~WebTests"` exits with 0 failures and 6 passed tests
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-008 | Create `MatchApiClient` (fixture call and SSE event stream), register it without the resilience handler and with an infinite timeout, and name the API base address once | FILE-005, FILE-023, FILE-024, FILE-025, FILE-026 | | |
-| TASK-009 | Create the `/match` page and add its navigation link | FILE-021, FILE-027, FILE-028 | | |
+| TASK-008 | Create `MatchApiClient` (fixture call and SSE event stream), register it without the resilience handler and with an infinite timeout, and name the API base address once | FILE-005, FILE-023, FILE-024, FILE-025, FILE-026 | Yes | 2026-10-11 |
+| TASK-009 | Create the `/match` page and add its navigation link | FILE-021, FILE-027, FILE-028 | Yes | 2026-10-11 |
 
 #### TASK-008 Code
 
@@ -809,7 +809,7 @@ No boy scout findings
 | Item | File | Category | Phase / Task | Status |
 |------|------|----------|--------------|--------|
 | BSC-001 | FILE-021 | DRY | Phase 4 / TASK-007 | Open |
-| BSC-002 | FILE-025 | DRY | Phase 5 / TASK-008 | Open |
+| BSC-002 | FILE-025 | DRY | Phase 5 / TASK-008 | Done |
 
 ## 4. Manual End-to-End Test
 
