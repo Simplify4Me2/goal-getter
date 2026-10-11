@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.0.0
+# Visual Studio Version 18
+VisualStudioVersion = 18.11.12224.323 insiders
 MinimumVisualStudioVersion = 17.8.0.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoalGetter.AppHost", "GoalGetter.AppHost\GoalGetter.AppHost.csproj", "{F4AA83E0-5FD0-4E1F-B90B-5B823B709016}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoalGetter.Web", "GoalGetter.Web\GoalGetter.Web.csproj", "{F183C07B-81FF-4095-85FD-A0E29C1B83EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoalGetter.Contracts", "GoalGetter.Contracts\GoalGetter.Contracts.csproj", "{A26AD935-B836-4DD0-A7D7-E3881F97644C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B502560A-990E-4D5D-B4E0-6DDB127C0CA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5AB15E91-03F3-4B02-ADDF-9AD2AF23785C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +104,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{99DB949B-EAAE-4E48-A626-EC0F55A9646F} = {B502560A-990E-4D5D-B4E0-6DDB127C0CA5}
+		{7291F999-DF65-4C75-9C80-D889657C84A2} = {5AB15E91-03F3-4B02-ADDF-9AD2AF23785C}
+		{F183C07B-81FF-4095-85FD-A0E29C1B83EE} = {B502560A-990E-4D5D-B4E0-6DDB127C0CA5}
+		{A26AD935-B836-4DD0-A7D7-E3881F97644C} = {B502560A-990E-4D5D-B4E0-6DDB127C0CA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00140C3B-FE99-4E2B-8850-6964EE416AA7}
