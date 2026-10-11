@@ -33,6 +33,15 @@ Each phase contains, in this fixed order: the implementation code, the tests tha
 - Tasks within phases must be executable in parallel unless dependencies are specified
 - All task descriptions must include specific file paths, function names, and exact implementation details
 - No task should require human interpretation or decision-making
+- Every task that uses a Microsoft, .NET, ASP.NET Core, Aspire, or Azure API must place a code snippet under its `Code` heading, sourced from the Microsoft Learn MCP server (`microsoftdocs/mcp`):
+  1. Run `microsoft_docs_search` with the API or feature name to find the authoritative page
+  2. Run `microsoft_code_sample_search` with `language` set to `csharp` to find a matching sample
+  3. Run `microsoft_docs_fetch` on the page when the snippet needs prerequisites, version notes, or full context
+  4. Adapt only names and paths to project conventions, and cite the source URL on a `Source:` line directly below the snippet
+- Snippets target .NET 10, ASP.NET Core, and .NET Aspire, matching `GoalGetter/GoalGetter.sln`
+- Snippets contain no credentials; reference configuration or user secrets instead
+- Snippets use the minimum lines needed to show the API usage
+- Each phase completion criteria must name a build or test command that proves the phase
 
 ## Good Boy Scout Principle
 
@@ -50,23 +59,9 @@ For each task, review the touched code for the following:
 Rules:
 - Each finding becomes a `BSC-NNN` item under its task with: file path, category, the exact smell or principle, and the proposed change
 - Boy scout changes must preserve observable behavior and must be covered by a `TEST-NNN` item (existing or new)
-- Never refactor code outside the touched files; record such findings as `RISK-NNN` or `ASSUMPTION-NNN` in Section 9
+- Change only the code that the task changes; record findings in other code of a touched file as `RISK-NNN` or `ASSUMPTION-NNN` in Section 9
 - Do not propose a design pattern unless a concrete smell in the touched code requires it
 - If no finding applies to a task, write `No boy scout findings` under that task
-
-## Code Snippet Sourcing
-
-Every task that uses a Microsoft, .NET, ASP.NET Core, Aspire, or Azure API must include a code snippet from the Microsoft Learn MCP server (`microsoftdocs/mcp`):
-
-1. Run `microsoft_docs_search` with the API or feature name to find the authoritative page
-2. Run `microsoft_code_sample_search` with `language` set to `csharp` to find a matching sample
-3. Run `microsoft_docs_fetch` on the page when the snippet needs prerequisites, version notes, or full context
-4. Place the snippet under the task, adapt only names and paths to project conventions, and cite the source URL directly below it
-
-Snippet rules:
-- Target .NET 10, ASP.NET Core, and .NET Aspire, matching the solution in `GoalGetter/GoalGetter.sln`
-- Contain no credentials; reference configuration or user secrets instead
-- Keep to the minimum lines needed to show the API usage
 
 ## Manual End-to-End Testing
 
@@ -98,7 +93,7 @@ Each plan must end with a manual test flow that exercises the complete implement
 
 ## Mandatory Template Structure
 
-All implementation plans must strictly adhere to the following template. Each section is required and must be populated with specific, actionable content. Section order and section headers are fixed; do not add, remove, or rename sections. AI agents must validate template compliance before execution.
+All implementation plans must strictly adhere to the structure in `template.md`. Each section is required and must be populated with specific, actionable content. Section order and section headers are fixed; do not add, remove, or rename sections. AI agents must validate template compliance before execution. Use `template.md` for the full fill-in structure, including front matter and the per-task Code, Tests, and Boy Scout subsections.
 
 ## Template Validation Rules
 
@@ -144,135 +139,8 @@ If check (1) or (2) returns any row, re-number the duplicate so each identifier 
 
 The status of the implementation plan must be clearly defined in the front matter and must reflect the current state of the plan. The status can be one of the following (status_color in brackets): `Completed` (bright green badge), `In progress` (yellow badge), `Planned` (blue badge), `Deprecated` (red badge), or `On Hold` (orange badge). It should also be displayed as a badge in the introduction section.
 
-```md
----
-goal: [Concise Title Describing the Package Implementation Plan's Goal]
-version: [Optional: e.g., 1.0, Date]
-date_created: [YYYY-MM-DD]
-last_updated: [Optional: YYYY-MM-DD]
-owner: [Optional: Team/Individual responsible for this spec]
-status: 'Completed'|'In progress'|'Planned'|'Deprecated'|'On Hold'
-tags: [Optional: List of relevant tags or categories, e.g., `feature`, `upgrade`, `chore`, `architecture`, `migration`, `bug` etc]
----
+The front matter and introduction must reflect the current state of the plan. Use `template.md` for the exact front matter fields and the status badge markup.
 
-# Introduction
+## Examples
 
-![Status: <status>](https://img.shields.io/badge/status-<status>-<status_color>)
-
-**Summary for reviewers**: [Up to three plain-language sentences: what changes, why it matters, and how success is recognized.]
-
-[A short concise introduction to the plan and the goal it is intended to achieve.]
-
-## 1. Requirements & Constraints
-
-[Explicitly list all requirements & constraints that affect the plan and constrain how it is implemented. Use bullet points or tables for clarity.]
-
-- **REQ-001**: Requirement 1
-- **SEC-001**: Security Requirement 1
-- **[3 LETTERS]-001**: Other Requirement 1
-- **CON-001**: Constraint 1
-- **GUD-001**: Guideline 1
-- **PAT-001**: Pattern to follow 1
-
-## 2. Implementation Steps
-
-[Each phase is one independently deliverable increment. Within a phase the order is fixed: code, then tests, then boy scout items.]
-
-### Implementation Phase 1 - [Short Phase Name]
-
-- **GOAL-001**: [Describe the goal of this phase, e.g., "Expose live match events through the ApiService"]
-- **Completion criteria**: [Measurable criteria, e.g., "`dotnet test GoalGetter/GoalGetter.Tests` exits with 0 failures"]
-
-| Task | Description | Files | Completed | Date |
-|------|-------------|-------|-----------|------|
-| TASK-001 | [What to implement, and why] | FILE-001 | | |
-| TASK-002 | [What to implement, and why] | FILE-002, FILE-003 | | |
-
-#### TASK-001 Code
-
-Source: [Microsoft Learn URL]
-
-```csharp
-// Snippet from Microsoft Learn, adapted only to project naming and conventions
-```
-
-#### TASK-001 Tests
-
-- **TEST-001**: [Test name] in [repository-relative test file path]. Asserts [behavior]. Expected: [result].
-
-#### TASK-001 Boy Scout
-
-- **BSC-001**: [File path] | [DRY / SOLID / Code smell / Design pattern] | [Exact smell or principle] | [Proposed behavior-preserving change]
-
-#### TASK-002 Code
-
-[Repeat the Code, Tests, and Boy Scout structure for TASK-002.]
-
-### Implementation Phase 2 - [Short Phase Name]
-
-- **GOAL-002**: [Describe the goal of this phase]
-- **Completion criteria**: [Measurable criteria]
-
-[Repeat the full phase structure for each phase.]
-
-## 3. Boy Scout Summary
-
-[Index of every `BSC-NNN` item declared in Section 2. Reference only; do not declare new items here.]
-
-| Item | File | Category | Phase / Task | Status |
-|------|------|----------|--------------|--------|
-| BSC-001 | FILE-001 | DRY | Phase 1 / TASK-001 | |
-
-## 4. Manual End-to-End Test
-
-[Step-by-step manual validation of the full implemented flow, from the user's entry point to the final visible or stored result. Run only after all phases are complete.]
-
-- **Prerequisites**: [Tools, accounts, and data needed before step 1]
-- **Start**: Run `aspire start` from `GoalGetter/`, then open the Aspire dashboard and confirm all resources are Running
-- **E2E-001**: Precondition: [state]. Action: [exact URL, page, endpoint, or command]. Expected: [observable result].
-- **E2E-002**: Negative path. Precondition: [state]. Action: [invalid input or stopped dependency]. Expected: [error behavior and message].
-- **Stop**: Run `aspire stop` when testing is complete
-
-## 5. Alternatives
-
-[A bullet point list of any alternative approaches that were considered and why they were not chosen. This helps to provide context and rationale for the chosen approach.]
-
-- **ALT-001**: Alternative approach 1
-- **ALT-002**: Alternative approach 2
-
-## 6. Dependencies
-
-[List any dependencies that need to be addressed, such as libraries, frameworks, or other components that the plan relies on.]
-
-- **DEP-001**: Dependency 1
-- **DEP-002**: Dependency 2
-
-## 7. Files
-
-[List every file the plan touches. Use repository-relative paths. Action is one of `CREATE`, `MODIFY`, or `DELETE`.]
-
-- **FILE-001**: `GoalGetter/GoalGetter.ApiService/Program.cs` | MODIFY | [Classes and methods changed] | [Phase / TASK]
-- **FILE-002**: `GoalGetter/GoalGetter.Tests/[TestFile].cs` | CREATE | [Classes and methods added] | [Phase / TASK]
-
-## 8. Testing Strategy
-
-[Summarize the test types and commands. Individual tests are declared under each task in Section 2.]
-
-| Test Type | Project | Framework | Command |
-|-----------|---------|-----------|---------|
-| Unit | `GoalGetter/GoalGetter.Tests` | [Framework] | `dotnet test GoalGetter/GoalGetter.Tests` |
-| Integration | `GoalGetter/GoalGetter.Tests` | [Framework] | [Command] |
-
-## 9. Risks & Assumptions
-
-[List any risks or assumptions. Boy scout findings outside the touched files are recorded here.]
-
-- **RISK-001**: Risk 1
-- **ASSUMPTION-001**: Assumption 1
-
-## 10. Related Specifications / Further Reading
-
-[Link to related spec 1]
-[Link to relevant external documentation]
-[Microsoft Learn URLs used for code snippets]
-```
+See `examples/sample.md` for a complete feature plan and `examples/sample-refactor.md` for a complete refactoring plan. Both follow `template.md` and cite Microsoft Learn snippets.
