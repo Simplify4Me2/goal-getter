@@ -85,7 +85,7 @@ Each plan must end with a manual test flow that exercises the complete implement
 
 ## Output File Specifications
 
-- Save implementation plan files in `/plan/` directory
+- Save implementation plan files in `/docs/plan/` directory
 - Use naming convention: `[purpose]-[component]-[version].md`
 - Purpose prefixes: `upgrade|refactor|feature|data|infrastructure|process|architecture|design`
 - Example: `upgrade-system-command-4.md`, `feature-auth-module-1.md`
