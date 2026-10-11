@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Logging;
-
 namespace GoalGetter.Tests;
 
 public class WebTests
@@ -12,22 +10,7 @@ public class WebTests
         // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.GoalGetter_AppHost>(cancellationToken);
-        appHost.Services.AddLogging(logging =>
-        {
-            logging.SetMinimumLevel(LogLevel.Debug);
-            // Override the logging filters from the app's configuration
-            logging.AddFilter(appHost.Environment.ApplicationName, LogLevel.Debug);
-            logging.AddFilter("Aspire.", LogLevel.Debug);
-            // To output logs to the xUnit.net ITestOutputHelper, consider adding a package from https://www.nuget.org/packages?q=xunit+logging
-        });
-        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
-        {
-            clientBuilder.AddStandardResilienceHandler();
-        });
-
-        await using var app = await appHost.BuildAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
-        await app.StartAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
+        await using var app = await TestAppHost.StartAsync([], cancellationToken);
 
         // Act
         var httpClient = app.CreateHttpClient("webfrontend");

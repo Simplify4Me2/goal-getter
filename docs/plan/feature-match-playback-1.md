@@ -409,15 +409,15 @@ builder.Services.AddMatchServices();
 
 No boy scout findings
 
-### Implementation Phase 4 - API Endpoints and Aspire Integration
+### Implementation Phase 4 - API Endpoints and Aspire Integration (✅ COMPLETED)
 
 - **GOAL-004**: Expose the fixture and the live event stream over HTTP, and verify them end to end through the Aspire AppHost
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests` exits with 0 failures, including `WebTests` and `MatchEndpointsTests`
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-006 | Create `MapMatchEndpoints` with the fixture route and the SSE stream route, validate `matchId`, and call it from `Program.cs` | FILE-015, FILE-017, FILE-018 | | |
-| TASK-007 | Let the AppHost pass `MatchPlayback:SpeedFactor` to `apiservice`, add a shared `TestAppHost` helper, move `WebTests` onto it, and add integration tests for both routes | FILE-019, FILE-020, FILE-021, FILE-022 | | |
+| TASK-006 | Create `MapMatchEndpoints` with the fixture route and the SSE stream route, validate `matchId`, and call it from `Program.cs` | FILE-015, FILE-017, FILE-018 | Yes | 2026-10-11 |
+| TASK-007 | Let the AppHost pass `MatchPlayback:SpeedFactor` to `apiservice`, add a shared `TestAppHost` helper, move `WebTests` onto it, and add integration tests for both routes | FILE-019, FILE-020, FILE-021, FILE-022 | Yes | 2026-10-11 |
 
 #### TASK-006 Code
 

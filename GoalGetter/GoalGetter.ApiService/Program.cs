@@ -1,3 +1,4 @@
+using GoalGetter.ApiService.Endpoints;
 using GoalGetter.ApiService.Matches;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapMatchEndpoints();
 
 app.MapDefaultEndpoints();
 

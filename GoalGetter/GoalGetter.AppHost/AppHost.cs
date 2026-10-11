@@ -3,6 +3,11 @@ var builder = DistributedApplication.CreateBuilder(args);
 var apiService = builder.AddProject<Projects.GoalGetter_ApiService>("apiservice")
     .WithHttpHealthCheck("/health");
 
+if (builder.Configuration["MatchPlayback:SpeedFactor"] is { } speedFactor)
+{
+    apiService.WithEnvironment("MatchPlayback__SpeedFactor", speedFactor);
+}
+
 builder.AddProject<Projects.GoalGetter_Web>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/health")

@@ -4,3 +4,14 @@ GET {{ApiService_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{ApiService_HostAddress}}/matches/1/fixture
+Accept: application/json
+
+###
+
+# Streams events at live pace. Use curl -N or the Aspire dashboard; this client buffers SSE.
+GET {{ApiService_HostAddress}}/matches/1/events/stream
+Accept: text/event-stream
+
+###
