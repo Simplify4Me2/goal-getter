@@ -45,15 +45,15 @@ Definitions used in this plan:
 
 ## 2. Implementation Steps
 
-### Implementation Phase 1 - Shared Contracts and Fixture Catalog
+### Implementation Phase 1 (✅ COMPLETED) - Shared Contracts and Fixture Catalog
 
 - **GOAL-001**: Provide shared match contracts and an in-memory catalog with one fixture (match 1)
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests --filter "FullyQualifiedName~ContractsTests|FullyQualifiedName~FixtureCatalogTests"` exits with 0 failures and 5 passed tests, and `dotnet build GoalGetter/GoalGetter.sln` exits with 0 errors
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-001 | Create the `GoalGetter.Contracts` class library with `Pitch`, `EventType`, `Player`, `Team`, `Fixture`, and `MatchEvent`. Add it to the solution and reference it from `GoalGetter.ApiService` and `GoalGetter.Tests` | FILE-001, FILE-002, FILE-003, FILE-004, FILE-005, FILE-006 | | |
-| TASK-002 | Create `IFixtureCatalog` and `InMemoryFixtureCatalog` holding the fixture for match 1 with two lineups of 11 players | FILE-007, FILE-008 | | |
+| TASK-001 | Create the `GoalGetter.Contracts` class library with `Pitch`, `EventType`, `Player`, `Team`, `Fixture`, and `MatchEvent`. Add it to the solution and reference it from `GoalGetter.ApiService` and `GoalGetter.Tests` | FILE-001, FILE-002, FILE-003, FILE-004, FILE-005, FILE-006 | Yes | 2026-10-11 |
+| TASK-002 | Create `IFixtureCatalog` and `InMemoryFixtureCatalog` holding the fixture for match 1 with two lineups of 11 players | FILE-007, FILE-008 | Yes | 2026-10-11 |
 
 #### TASK-001 Code
 

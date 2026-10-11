@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoalGetter.AppHost\GoalGetter.AppHost.csproj" />
+    <ProjectReference Include="..\GoalGetter.Contracts\GoalGetter.Contracts.csproj" />
+    <ProjectReference Include="..\GoalGetter.ApiService\GoalGetter.ApiService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +29,7 @@
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="Aspire.Hosting.ApplicationModel" />
     <Using Include="Aspire.Hosting.Testing" />
+    <Using Include="GoalGetter.Contracts.Matches" />
     <Using Include="Xunit" />
   </ItemGroup>
 
