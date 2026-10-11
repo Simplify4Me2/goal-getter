@@ -170,14 +170,14 @@ Register in `AddMatchServices` (TASK-005): `services.AddSingleton<IFixtureCatalo
 
 No boy scout findings
 
-### Implementation Phase 2 - Synthetic Match Generator
+### Implementation Phase 2 (✅ COMPLETED) - Synthetic Match Generator
 
 - **GOAL-002**: Generate a deterministic, football-realistic list of timed events with pitch coordinates for a fixture
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests --filter "FullyQualifiedName~SyntheticMatchGeneratorTests"` exits with 0 failures and 7 passed tests
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-003 | Create `ISyntheticMatchGenerator` and `SyntheticMatchGenerator`. A possession state machine, seeded by the match id, steps the clock by 3 to 15 seconds, moves the ball toward the possessing team's goal, and emits one event per step | FILE-009, FILE-010 | | |
+| TASK-003 | Create `ISyntheticMatchGenerator` and `SyntheticMatchGenerator`. A possession state machine, seeded by the match id, steps the clock by 3 to 15 seconds, moves the ball toward the possessing team's goal, and emits one event per step | FILE-009, FILE-010 | Yes | 2026-10-11 |
 
 #### TASK-003 Code
 
