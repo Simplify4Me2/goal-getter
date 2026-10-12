@@ -30,6 +30,23 @@ public class MatchApiClientTests
     }
 
     [Fact]
+    public async Task StreamEventsAsync_ParsesPlayerAndTeamNames()
+    {
+        // Arrange
+        var cancellationToken = TestContext.Current.CancellationToken;
+        var sent = new TaggedMatchEvent("1-0001", 1, 10, EventType.Pass, "NGR", "Northgate Rovers", 12, "Pavel Kral", 50, 34);
+        var body = $"event: matchEvent\ndata: {JsonSerializer.Serialize(sent, JsonSerializerOptions.Web)}\n\n";
+        using var httpClient = CreateHttpClient(HttpStatusCode.OK, body, "text/event-stream");
+        var client = new MatchApiClient(httpClient);
+
+        // Act
+        var received = await ReadEventsAsync(client, 1, cancellationToken);
+
+        // Assert
+        Assert.Equal(("Pavel Kral", "Northgate Rovers"), (received[0].PlayerName, received[0].TeamName));
+    }
+
+    [Fact]
     public async Task StreamEventsAsync_NotFound_ThrowsHttpRequestException()
     {
         // Arrange
@@ -62,8 +79,8 @@ public class MatchApiClientTests
         Assert.Equal(("Harbor City FC", 11), (result?.Home.Name, result?.Home.Lineup.Count));
     }
 
-    private static MatchEvent CreateEvent(int clockSeconds, string id, EventType type) =>
-        new(id, 1, clockSeconds, type, "HCF", 1, 50, 34);
+    private static TaggedMatchEvent CreateEvent(int clockSeconds, string id, EventType type) =>
+        new(id, 1, clockSeconds, type, "HCF", "Harbor City FC", 1, "Tomas Brandt", 50, 34);
 
     private static Team CreateTeam(string id, string name, int firstPlayerId) =>
         new(id, name, Enumerable.Range(0, 11)
@@ -73,10 +90,10 @@ public class MatchApiClientTests
     private static HttpClient CreateHttpClient(HttpStatusCode statusCode, string body, string contentType) =>
         new(new StubHandler(statusCode, body, contentType)) { BaseAddress = new Uri("http://apiservice") };
 
-    private static async Task<List<MatchEvent>> ReadEventsAsync(
+    private static async Task<List<TaggedMatchEvent>> ReadEventsAsync(
         MatchApiClient client, int matchId, CancellationToken cancellationToken)
     {
-        var events = new List<MatchEvent>();
+        var events = new List<TaggedMatchEvent>();
         await foreach (var matchEvent in client.StreamEventsAsync(matchId, cancellationToken))
         {
             events.Add(matchEvent);

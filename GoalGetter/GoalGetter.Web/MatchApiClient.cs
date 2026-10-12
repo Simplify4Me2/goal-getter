@@ -11,7 +11,7 @@ public class MatchApiClient(HttpClient httpClient)
     public Task<Fixture?> GetFixtureAsync(int matchId, CancellationToken cancellationToken = default) =>
         httpClient.GetFromJsonAsync<Fixture>($"/matches/{matchId}/fixture", cancellationToken);
 
-    public async IAsyncEnumerable<MatchEvent> StreamEventsAsync(
+    public async IAsyncEnumerable<TaggedMatchEvent> StreamEventsAsync(
         int matchId, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var request = new HttpRequestMessage(HttpMethod.Get, $"/matches/{matchId}/events/stream");
@@ -19,7 +19,7 @@ public class MatchApiClient(HttpClient httpClient)
         response.EnsureSuccessStatusCode();
 
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        var parser = SseParser.Create(stream, (_, data) => JsonSerializer.Deserialize<MatchEvent>(data, JsonSerializerOptions.Web)!);
+        var parser = SseParser.Create(stream, (_, data) => JsonSerializer.Deserialize<TaggedMatchEvent>(data, JsonSerializerOptions.Web)!);
 
         await foreach (var item in parser.EnumerateAsync(cancellationToken))
         {

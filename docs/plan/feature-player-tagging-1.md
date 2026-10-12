@@ -141,15 +141,15 @@ All tagger tests are in `GoalGetter/GoalGetter.Tests/PlayerTaggerTests.cs`. They
 
 No boy scout findings
 
-### Implementation Phase 2 - Tagged Stream and Match Page
+### Implementation Phase 2 (✅ COMPLETED) - Tagged Stream and Match Page
 
 - **GOAL-002**: Stream `TaggedMatchEvent` from the API and show the player and team name on the `/match` page
 - **Completion criteria**: `dotnet test GoalGetter/GoalGetter.Tests` exits with 0 failures, including `MatchEndpointsTests`, `MatchApiClientTests`, and `WebTests`
 
 | Task | Description | Files | Completed | Date |
 |------|-------------|-------|-----------|------|
-| TASK-003 | Tag each event in `ToSseItems` and change the SSE payload type from `MatchEvent` to `TaggedMatchEvent`, keeping the event name and event id | FILE-007, FILE-008 | | |
-| TASK-004 | Change `MatchApiClient.StreamEventsAsync` to yield `TaggedMatchEvent`, and show player name and team name in `Match.razor` without a client-side lookup | FILE-009, FILE-010, FILE-011 | | |
+| TASK-003 | Tag each event in `ToSseItems` and change the SSE payload type from `MatchEvent` to `TaggedMatchEvent`, keeping the event name and event id | FILE-007, FILE-008 | Yes | 2026-10-12 |
+| TASK-004 | Change `MatchApiClient.StreamEventsAsync` to yield `TaggedMatchEvent`, and show player name and team name in `Match.razor` without a client-side lookup | FILE-009, FILE-010, FILE-011 | Yes | 2026-10-12 |
 
 #### TASK-003 Code
 
@@ -251,7 +251,7 @@ The page's behavior after the Start match click is interactive Blazor and is cov
 
 | Item | File | Category | Phase / Task | Status |
 |------|------|----------|--------------|--------|
-| BSC-001 | FILE-011 | DRY / Code smell | Phase 2 / TASK-004 | Open |
+| BSC-001 | FILE-011 | DRY / Code smell | Phase 2 / TASK-004 | Done |
 
 ## 4. Manual End-to-End Test
 

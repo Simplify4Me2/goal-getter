@@ -27,7 +27,7 @@
     <ul>
         @foreach (var matchEvent in events)
         {
-            <li>@FormatClock(matchEvent.ClockSeconds) @matchEvent.Type, @PlayerName(matchEvent) (@matchEvent.X.ToString("0"), @matchEvent.Y.ToString("0"))</li>
+            <li>@FormatClock(matchEvent.ClockSeconds) @matchEvent.Type, @matchEvent.PlayerName, @matchEvent.TeamName (@matchEvent.X.ToString("0"), @matchEvent.Y.ToString("0"))</li>
         }
     </ul>
 }
@@ -37,8 +37,7 @@
     private const int MaxVisibleEvents = 50;
 
     private readonly CancellationTokenSource cts = new();
-    private readonly List<MatchEvent> events = [];
-    private Dictionary<int, string> playerNames = [];
+    private readonly List<TaggedMatchEvent> events = [];
     private Fixture? fixture;
     private bool running;
     private string? error;
@@ -51,11 +50,6 @@
         try
         {
             fixture = await MatchApi.GetFixtureAsync(MatchId, cts.Token);
-            if (fixture is not null)
-            {
-                playerNames = fixture.Home.Lineup.Concat(fixture.Away.Lineup)
-                    .ToDictionary(player => player.Id, player => player.Name);
-            }
         }
         catch (HttpRequestException)
         {
@@ -93,9 +87,6 @@
             running = false;
         }
     }
-
-    private string PlayerName(MatchEvent matchEvent) =>
-        playerNames.GetValueOrDefault(matchEvent.PlayerId, "Unknown player");
 
     private static string FormatClock(int seconds) => $"{seconds / 60:00}:{seconds % 60:00}";
 

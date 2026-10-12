@@ -20,20 +20,24 @@ public static class MatchEndpoints
 
         // Each connection starts its own playback from kickoff.
         matches.MapGet("/{matchId:int}/events/stream",
-            (int matchId, IFixtureCatalog catalog, IMatchPlayback playback, CancellationToken cancellationToken) =>
+            (int matchId, IFixtureCatalog catalog, IMatchPlayback playback, IPlayerTagger tagger, CancellationToken cancellationToken) =>
                 matchId <= 0 ? Results.BadRequest()
                 : !catalog.TryGet(matchId, out var fixture) ? Results.NotFound()
-                : TypedResults.ServerSentEvents(ToSseItems(playback, fixture, cancellationToken)));
+                : TypedResults.ServerSentEvents(ToSseItems(playback, tagger, fixture, cancellationToken)));
 
         return app;
     }
 
-    private static async IAsyncEnumerable<SseItem<MatchEvent>> ToSseItems(
-        IMatchPlayback playback, Fixture fixture, [EnumeratorCancellation] CancellationToken cancellationToken)
+    private static async IAsyncEnumerable<SseItem<TaggedMatchEvent>> ToSseItems(
+        IMatchPlayback playback, IPlayerTagger tagger, Fixture fixture,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var matchEvent in playback.PlayAsync(fixture, cancellationToken))
         {
-            yield return new SseItem<MatchEvent>(matchEvent, MatchEventName) { EventId = matchEvent.Id };
+            yield return new SseItem<TaggedMatchEvent>(tagger.Tag(fixture, matchEvent), MatchEventName)
+            {
+                EventId = matchEvent.Id,
+            };
         }
     }
 }
