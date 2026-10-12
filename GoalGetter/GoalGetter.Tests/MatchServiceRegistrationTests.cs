@@ -36,6 +36,16 @@ public class MatchServiceRegistrationTests
         Assert.Throws<OptionsValidationException>(() => _ = options.Value);
     }
 
+    [Fact]
+    public void AddMatchServices_ResolvesPlayerTagger()
+    {
+        using var provider = BuildProvider();
+
+        var tagger = provider.GetRequiredService<IPlayerTagger>();
+
+        Assert.IsType<PlayerTagger>(tagger);
+    }
+
     private static ServiceProvider BuildProvider(params (string Key, string? Value)[] settings)
     {
         var configuration = new ConfigurationBuilder()
@@ -43,6 +53,7 @@ public class MatchServiceRegistrationTests
             .Build();
 
         var services = new ServiceCollection();
+        services.AddLogging();
         services.AddSingleton<IConfiguration>(configuration);
         services.AddMatchServices();
 

@@ -16,6 +16,7 @@ public static class MatchServiceCollectionExtensions
         services.AddSingleton<IFixtureCatalog, InMemoryFixtureCatalog>();
         services.AddSingleton<ISyntheticMatchGenerator, SyntheticMatchGenerator>();
         services.AddSingleton<IMatchPlayback, MatchPlayback>();
+        services.AddSingleton<IPlayerTagger, PlayerTagger>();
 
         return services;
     }

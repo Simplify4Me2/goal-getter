@@ -19,3 +19,7 @@ public sealed record Fixture(int MatchId, DateTimeOffset Kickoff, Team Home, Tea
 
 public sealed record MatchEvent(
     string Id, int MatchId, int ClockSeconds, EventType Type, string TeamId, int PlayerId, double X, double Y);
+
+public sealed record TaggedMatchEvent(
+    string Id, int MatchId, int ClockSeconds, EventType Type,
+    string TeamId, string TeamName, int PlayerId, string PlayerName, double X, double Y);
