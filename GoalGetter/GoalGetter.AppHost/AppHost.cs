@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cosmos = builder.AddAzureCosmosDB("cosmos-db");
+var cosmos = builder.AddAzureCosmosDB("cosmos-db").RunAsEmulator();
 
 var apiService = builder.AddProject<Projects.GoalGetter_ApiService>("apiservice")
     .WithHttpHealthCheck("/health");
