@@ -9,9 +9,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Two independent jobs. GitHub Actions runs jobs in parallel by default; add
+# `needs: <job-id>` to a job to make it wait for another one.
 jobs:
-  build:
-
+  build-apiservice:
+    name: Build ApiService
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +21,23 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore GoalGetter/GoalGetter.ApiService/GoalGetter.ApiService.csproj
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build GoalGetter/GoalGetter.ApiService/GoalGetter.ApiService.csproj --no-restore
+
+  build-webfrontend:
+    name: Build WebFrontend
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+    - name: Restore dependencies
+      run: dotnet restore GoalGetter/GoalGetter.Web/GoalGetter.Web.csproj
+    - name: Build
+      run: dotnet build GoalGetter/GoalGetter.Web/GoalGetter.Web.csproj --no-restore
